@@ -1,4 +1,4 @@
-import * as values from "ramda/src/values"
+import {values} from "ramda";
 import test from "ava";
 
 import constants from "../../../constants";
@@ -6,43 +6,43 @@ import reducer from "./error";
 
 var subject = constants.REDUCER_NAMES.CREATE_ERROR;
 var config = {
-  key: constants.DEFAULT_KEY,
-  resourceName: "users"
+	key: constants.DEFAULT_KEY,
+	resourceName: "users"
 };
 
 function getCurrent() {
-  return {
-    1: {
-      id: 1,
-      name: "Blue"
-    },
-    2: {
-      id: "abc",
-      name: "Green"
-    }
-  };
+	return {
+		1: {
+			id: 1,
+			name: "Blue"
+		},
+		2: {
+			id: "abc",
+			name: "Green"
+		}
+	};
 }
 
 test(subject + "throws if given an array", function(t) {
-  var curr = getCurrent();
-  var created = [];
+	var curr = getCurrent();
+	var created = [];
 
-  function fn() {
-    reducer(config, curr, created);
-  }
+	function fn() {
+		reducer(config, curr, created);
+	}
 
-  t.throws(fn, TypeError);
+	t.throws(fn, TypeError);
 });
 
 test(subject + "removes the record", function(t) {
-  var curr = getCurrent();
-  t.deepEqual(values(curr).length, 2);
+	var curr = getCurrent();
+	t.deepEqual(values(curr).length, 2);
 
-  var created = {
-    id: "abc",
-    name: "Green"
-  };
-  var updated = reducer(config, curr, created);
+	var created = {
+		id: "abc",
+		name: "Green"
+	};
+	var updated = reducer(config, curr, created);
 
-  t.deepEqual(values(updated).length, 2);
+	t.deepEqual(values(updated).length, 2);
 });

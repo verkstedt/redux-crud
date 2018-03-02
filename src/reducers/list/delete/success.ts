@@ -1,4 +1,4 @@
-import * as reject from "ramda/src/reject"
+import {reject} from "ramda";
 
 import invariants from "../invariants";
 import constants from "../../../constants";
@@ -7,23 +7,23 @@ import {Config, InvariantsBaseArgs, ReducerName} from "../../../types";
 
 var reducerName: ReducerName = constants.REDUCER_NAMES.DELETE_SUCCESS;
 var invariantArgs: InvariantsBaseArgs = {
-  reducerName,
-  canBeArray: false
+	reducerName,
+	canBeArray: false
 };
 
 export default function success(
-  config: Config,
-  current: Array<any>,
-  record: any
+	config: Config,
+	current: Array<any>,
+	record: any
 ): Array<any> {
-  invariants(invariantArgs, config, current, record);
+	invariants(invariantArgs, config, current, record);
 
-  var key = config.key;
-  var deleteId = record[key];
+	var key = config.key;
+	var deleteId = record[key];
 
-  function predicate(existingRecord) {
-    return deleteId == existingRecord[key];
-  }
+	function predicate(existingRecord) {
+		return deleteId == existingRecord[key];
+	}
 
-  return reject(predicate, current);
+	return reject(predicate, current);
 }

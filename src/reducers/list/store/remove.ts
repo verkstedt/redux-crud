@@ -1,19 +1,19 @@
-import * as reject from "ramda/src/reject"
+import {reject} from "ramda";
 
 import {Config} from "../../../types";
 
 export default function remove(
-  config: Config,
-  current: Array<any>,
-  addedRecord: any
+	config: Config,
+	current: Array<any>,
+	addedRecord: any
 ): Array<any> {
-  var key = config.key;
+	var key = config.key;
 
-  function predicate(record: any) {
-    var recordKey = record[key];
-    var isSameKey = addedRecord[key] === recordKey;
-    return isSameKey;
-  }
+	function predicate(record: any) {
+		var recordKey = record[key];
+		var isSameKey = addedRecord[key] === recordKey;
+		return isSameKey;
+	}
 
-  return reject(predicate, current);
+	return reject(predicate, current);
 }
